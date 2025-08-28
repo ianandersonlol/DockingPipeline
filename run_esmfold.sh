@@ -1,6 +1,7 @@
 #!/bin/bash
 
-#SBATCH --partition=gpu-jbsiegel
+#SBATCH --partition=gpu-a100
+#SBATCH --account=genome-center-grp
 #SBATCH --time=72:00:00
 #SBATCH --gres=gpu:1
 #SBATCH --mem=32G
@@ -14,11 +15,11 @@ if [ $# -lt 2 ]; then
 fi
 
 # Activate the conda environment
-export TORCH_HOME=/share/siegellab/aian/scripts/torch_cache
+export TORCH_HOME=/quobyte/jbsiegelgrp/aian/.cache/torch
 
 # Activate the conda environment
-. "/toolbox/softwares/anaconda3/etc/profile.d/conda.sh"
-conda activate /share/siegellab/aian/scripts/Miniconda/envs/esmfold
+. "/quobyte/jbsiegelgrp/software/anaconda3/etc/profile.d/conda.sh"
+conda activate /quobyte/jbsiegelgrp/aian/.conda/envs/esmfold
 
 # Run the Python script with the FASTA file path and output directory as arguments
-python /share/siegellab/aian/scripts/esmfold.py "$1" "$2"
+python /quobyte/jbsiegelgrp/aian/scripts/esmfold.py "$1" "$2"

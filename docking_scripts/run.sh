@@ -3,8 +3,10 @@
 #SBATCH --output=logs
 #SBATCH --mem 4G
 #SBATCH --nodes 1
-#SBATCH --time 1-0
+#SBATCH --time 3-0
+#SBATCH --partition=low
+#SBATCH --requeue
 #SBATCH --array=1-10
 
-/share/siegellab/kschu/software/Rosetta/main/source/bin/rosetta_scripts.default.linuxgccrelease -database /share/siegellab/software/kschu/Rosetta/main/database @flags -overwrite -parser:protocol docking_new.xml -s esm_lig.pdb -out:path:all results -nstruct 100 -suffix _$SLURM_ARRAY_TASK_ID -score:weights ref2015_cst
+/quobyte/jbsiegelgrp/software/Rosetta_314/rosetta/main/source/bin/rosetta_scripts.static.linuxgccrelease -database /quobyte/jbsiegelgrp/software/Rosetta_314/rosetta/main/database @flags -overwrite -parser:protocol docking_new.xml -s esm_lig.pdb -out:path:all results -nstruct 100 -suffix _${SLURM_ARRAY_TASK_ID}_${SLURM_PROCID} -score:weights ref2015_cst
 
