@@ -1,5 +1,7 @@
 #!/bin/bash
 
+module load conda/latest
+
 echo "Starting the cleaning process..."
 
 # Find all .pdb files in subdirectories
